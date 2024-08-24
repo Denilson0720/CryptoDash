@@ -1,4 +1,8 @@
 import TrendingCoinProps from '../interfaces/TrendingCoinProps'
+// import TrendingCoin form '../interfaces/interfaces'
+// {key:number;score:number:coin:TrendingCoin;currency:string
+// }
+// export default function TrendingCoinShort({score:number,coin:TrendingCoin,currency:string})
 export default function TrendingCoinShort(props:TrendingCoinProps){
     /*
     name:string,

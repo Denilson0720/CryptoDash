@@ -9,8 +9,9 @@ import SmCoinCard from '../components/SmCoinCard';
 import CustomTabPanel from '../components/CustomTabPanel'
 import SparklineGraph from '../components/SparklineGraph'
 import LoadingSmCard from '../components/LoadingSmCard';
-import {getTrending,getBitcoin,getEthereum} from '../api.js'
-import {trendingReturn,error,bitcoin,ethereum} from '../interfaces/interfaces'
+// import {getTrending,getBitcoin,getEthereum} from '../api.js'
+import {getTrending,getBitcoin,getEthereum} from '../api'
+import {error,CoinStructure,TrendingReturn,TrendingCoin,TrendingNFT} from '../interfaces/interfaces'
 // MATERIAL UI functional component
 function a11yProps(index: number) {
     return {
@@ -18,13 +19,22 @@ function a11yProps(index: number) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
+interface dummy{
+    // data:{
+    coins:[];
+    nfts:[];
+
+}
 export default function Home(){
+
+
     const [value, setValue] = React.useState(0);
     const [currencyValue,setCurrencyValue] = React.useState(0);
-    const [trendingCoins, setTrendingCoins] = React.useState([]);
-    const [trendingNFTS, setTrendingNFTS] = React.useState([]);
-    const [bitcoinData,setBitcoinData] = React.useState();
-    const [ethereumData,setEthereumData] = React.useState();
+    // change to rending 
+    const [trendingCoins, setTrendingCoins] = React.useState<TrendingCoin[]>([]);
+    const [trendingNFTS, setTrendingNFTS] = React.useState<TrendingNFT[]>([]);
+    const [bitcoinData,setBitcoinData] = React.useState<CoinStructure|null>();
+    const [ethereumData,setEthereumData] = React.useState<CoinStructure|null>();
     const [selectedCurrency, setCurrency] = React.useState('btc');
 
     function handleCurrencyChange(currency:string):void{
@@ -38,7 +48,7 @@ export default function Home(){
     };
     async function loadEthereum(){
         getEthereum()
-            .then((data:ethereum) => {
+            .then((data:CoinStructure) => {
                 if (data){
                 // console.log('coin',data.coin)
                 setEthereumData(data)
@@ -51,7 +61,7 @@ export default function Home(){
     } 
     async function loadBitcoin(){
         getBitcoin()
-            .then((data:bitcoin) => {
+            .then((data:CoinStructure) => {
                 if (data){
                 // console.log('coin',data.coin)
                 setBitcoinData(data)
@@ -64,7 +74,7 @@ export default function Home(){
     }
     async function loadTrending(){
         getTrending()
-            .then((data:trendingReturn) => {
+            .then((data:TrendingReturn) => {
                 console.log('coins', data.coins)
                 console.log('nfts', data.nfts)
                 setTrendingCoins(data.coins)
@@ -94,26 +104,28 @@ export default function Home(){
     ):null
     const bitcoinGraph = bitcoinData?(
         <SparklineGraph
-            data = {bitcoinData}
-            index = {1}
+            coin = {bitcoinData}
+            // index = {1}
         />
     ):null
     const bitcoinCard = bitcoinData?(
         <SmCoinCard
-            data = {bitcoinData}
-            index = {1}
+            coin = {bitcoinData}
+            // data = {bitcoinData}
+            // index = {1}
         />
     ):<LoadingSmCard/>
     const ethereumGraph = ethereumData?(
         <SparklineGraph
-            data = {ethereumData}
-            index = {1}
+            coin = {ethereumData}
+            // index = {1}
         />
     ):null
     const ethereumCard = ethereumData?(
         <SmCoinCard
-            data = {ethereumData}
-            index ={1}
+            coin = {ethereumData}
+            // data = {ethereumData}
+            // index ={1}
         />
     ):<LoadingSmCard/>
     const selectedStyle = {

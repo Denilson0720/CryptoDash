@@ -4,7 +4,7 @@
 body{
   padding:1rem;
   margin:0;
-  background: rgb(34,83,72);
+  /* background: rgba(34,83,72,1 ); */
   background: linear-gradient(90deg, rgba(34,83,72,1) 0%, rgba(141,181,117,1) 100%);
   font-family: "Roboto Condensed", sans-serif;
   color:#FFFFFF;
@@ -14,11 +14,32 @@ body{
   align-content: center;
   height:100vh;
   /* border:2px solid red; */
+  /* color:rgb(156, 188, 137); */
   padding:0;
+  /* caret-color:black */
 }
+/* .spotlight-tracker{
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position: relative;
+   cursor: none; 
+  transition: background 0.3s;
+  color:rgb(255,255,255)
+} */
 .main-ctn{
   height:100vh;
   /* border:2px solid red; */
+}
+/* BACK BUTTON */
+.back-button{
+  color:white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  /* border: 2px solid white; */
+  margin-right:auto;
+  margin-left:2rem;
+  margin-bottom: 1rem;
 }
 /* HEADER */
 .header{
@@ -69,10 +90,11 @@ body{
   flex-direction: column;
   align-items: center;
   /* width:50%; */
-  border:2px solid pink;
+  /* border:2px solid pink; */
   /* background-color: #24403170; */
   margin:0.5rem;
   border-radius: 30px;
+  /* height:100%; */
   /* padding:0.8rem 0 0 0; */
   /* justify-content: center; */
 }
@@ -88,6 +110,8 @@ body{
   /* justify-content: center; */
   justify-content: flex-start;
   width:45%;
+  /* border:2px solid red; */
+  /* height:100%; */
 }
 .short-hr{
   border:0.5px solid #84a970;
@@ -115,6 +139,8 @@ body{
   background-color: #24403170;
   width:100%;
   border-radius: 30px;
+  /* border:2px solid white; */
+  height:100%;
 }
 .coin-card{
   font-family: "Roboto Condensed";
@@ -158,6 +184,10 @@ body{
 
 .coin-card>.right>p{
   margin:0.4rem 0;
+  color:#c2dfd0;
+}
+.coin-card>.right>p>.data{
+  color:white;
 }
 /* GRAPH CONTAINER */
 .graph-ctn{
@@ -165,6 +195,20 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* border:2px solid white; */
+}
+.graph-ctn>.tick-selection{
+  /* border:2px solid white; */
+  width:100%;
+  display: flex;
+  /* justify-content: space-evenly; */
+  justify-content: center;
+  gap:2rem; 
+}
+.tick-selection>span:hover{
+  color:#c2dfd0;
+  cursor: pointer;
+  /* transition: 0.5s; */
 }
 
  /* CURRENCY RADIO BUTTON */
@@ -605,12 +649,12 @@ body{
 /* COIN PAGE */
 .home.coin{
   /* border:2px solid white; */
-  /* padding:1rem; */
+  padding:1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height:80%;
+  height:85%;
   width:100%;
 }
 .coin-info{

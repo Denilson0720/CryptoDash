@@ -1,7 +1,7 @@
-export interface trendingReturn{
-    coins:{}
-    nfts:{}
-}
+// export interface trendingReturn{
+//     coins:{}
+//     nfts:{}
+// }
 export interface error{
     error:{}
 }
@@ -253,6 +253,9 @@ export interface CoinStructure {
         total_supply:number;
         max_supply:number;
         circulating_supply:number;
+        sparkline_7d:{
+            price:number[];
+        }
         last_updated:string
     };
     name: string;
@@ -268,4 +271,88 @@ export interface CoinStructure {
     tickers: any[]; // Array of any type, replace `any` with specific type if known
     watchlist_portfolio_users: number;
     web_slug: string;
+}
+// make interface dummy/TrendingReturn
+// make coins section to be an array of TrendingCoin
+export interface TrendingCoin{
+    item:{
+        id:string,
+        coin_id:number,
+        name:string,
+        symbol:string,
+        market_cap_rank:number,
+        thumb:string,
+        small:string,
+        large:string,
+        price_btc:number,
+        score:number,
+        data:{
+            price:number,
+            price_btc:string,
+            price_change_percentage_24h:{
+                usd:number,
+                eur:number,
+                btc:number
+            },
+            market_cap:string,
+            market_cap_btc:string,
+            total_volume:string,
+            total_volume_btc:string,
+            sparkline:string,
+            content:{
+                title:string,
+                description:string
+            }
+        }
+    }
+}
+export interface TrendingNFT{
+    id:string,
+    name:string,
+    symbol:string,
+    thumb:string,
+    nft_contract_id:number,
+    native_currency_symbol:string,
+    floor_price_in_native_currency:number,
+    floor_price_24h_percentage_change:number,
+    data:{
+        floor_price:string,
+        floor_price_in_usd_24h_percentage_change:string,
+        h24_volume:string,
+        h24_average_sale_price:string,
+        sparkline:string,
+        content:any
+    }
+}
+export interface TrendingReturn{
+    coins:TrendingCoin[],
+    nfts:TrendingNFT[]
+}
+export interface CoinFromList{
+    ath:number,
+    ath_change_percentage:number,
+    ath_date:string,
+    atl:number,
+    atl_change_percentage:number,
+    atl_date:string,
+    circulating_supply:number,
+    current_price:number,
+    fully_diluted_valuation:number,
+    high_24h:number,
+    id:string,
+    image:string,
+    last_updated:string,
+    low_24h:number,
+    market_cap:number,
+    market_cap_change_24h:number,
+    market_cap_change_percentage_24h:number,
+    market_cap_rank:number,
+    max_supply:number,
+    name:string,
+    price_change_24h:number,
+    price_change_percentage_24h:number,
+    roi:any,
+    symbol:string,
+    total_supply:number,
+    total_volume:number
 }

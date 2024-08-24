@@ -8,7 +8,7 @@ export default function Coin(){
     const [coinData,setCoinData] = useState<CoinStructure>()
     // const options = {method: 'GET', headers: {accept: 'application/json'}};
     const orderSymbol = (flag:boolean)=>(flag?'▴':'▾')
-    const price_percent_change_percentage = coinData?.market_data.price_change_percentage_24h
+    const price_percent_change_percentage = coinData? coinData.market_data.price_change_percentage_24h:0.0
     // '#7efc7e':'#fc7e7e'
     const redOrGreen = (value:boolean|undefined|null)=>{
         if(value===undefined||value===null){
@@ -16,9 +16,15 @@ export default function Coin(){
         }
         return value?{color:'#7efc7e'}:{color:'#fc7e7e'}
     }
-//     function redOrGreen(value:boolean|null|undefined){
-// )   
-//     }
+    function addCommas(n:number|null):string{
+        if(n===null){return ''}
+        const numStr = n.toString();
+
+        // Use a regular expression to add commas
+        const result = numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+        return result;
+    }
     function shortenNumber(n:number|undefined|null):string{
         // return ((n as unknown) as string).slice(0,3) --> only tricks ts compiler
         if(n===undefined|| n===null){
@@ -50,8 +56,9 @@ export default function Coin(){
     },[])
     return(
         <div className = 'home coin'>
-            <Link to='/coins'>Back to Coins</Link>
+            <Link className="back-button" to='/coins'>← Back to Coins</Link>
             <div className="coin-info">
+                {coinData?
                 <div className = 'left'>
                     <div className = 'title'>
                         <img src={coinData?.image.large} alt="" />
@@ -105,27 +112,29 @@ export default function Coin(){
                         </div>
                         
                     </div>
-                    <span>{shortenNumber(12345)}</span>
                     <div className="high-low">
                         <span className='high'>24HR High: <span style={redOrGreen(true)}>${coinData?.market_data.high_24h.usd}</span></span>
                         <span className='low'>24HR Low: <span style={redOrGreen(false)}>${coinData?.market_data.low_24h.usd}</span></span>
                     </div>
                     <p>All-Time High: <span className='data'>${coinData?.market_data.ath.usd} -- {coinData?.market_data.ath_date.usd}</span></p>
                     <p>All-Time Low: <span className = 'data'>${coinData?.market_data.atl.usd} -- {coinData?.market_data.atl_date.usd}</span></p>
-                    <p>Market Cap: <span className='data'>${coinData?.market_data.market_cap.usd}</span></p>
-                    <p>Fully Diluated Valuation: <span className='data'>${coinData?.market_data.fully_diluted_valuation.usd}</span></p>
-                    <p>Total Volume: <span className = 'data'>{coinData?.market_data.total_volume.usd}</span></p>
-                    <p>Total Supply: <span className = 'data'>{coinData?.market_data.total_supply}</span></p>
-                    <p>Max Supply: <span className = 'data'>{coinData?.market_data.max_supply}</span></p>
-                    <p>Circulating Supply: <span className = 'data'>{coinData?.market_data.circulating_supply}</span></p>
+                    <p>Market Cap: <span className='data'>${addCommas(coinData?.market_data.market_cap.usd)}</span></p>
+                    <p>Fully Diluated Valuation: <span className='data'>${addCommas(coinData?.market_data.fully_diluted_valuation.usd)}</span></p>
+                    <p>Total Volume: <span className = 'data'>{addCommas(coinData?.market_data.total_volume.usd)}</span></p>
+                    <p>Total Supply: <span className = 'data'>{addCommas(coinData?.market_data.total_supply)}</span></p>
+                    <p>Max Supply: <span className = 'data'>{addCommas(coinData?.market_data.max_supply)}</span></p>
+                    <p>Circulating Supply: <span className = 'data'>{addCommas(coinData?.market_data.circulating_supply)}</span></p>
                     <p>Last updated on <span className='data'>{coinData?.market_data.last_updated}</span></p>
                 </div>
+                :
+                <p>Loading...</p>
+                }
                 <div className = 'right'>
                     {coinData?
                     <SparklineGraph
-                        data = {coinData}
-                        index = {1}
-                    />:null}
+                        coin = {coinData}
+                    />
+                    :null}
                 </div>
             
             </div>

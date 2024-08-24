@@ -2,6 +2,7 @@ import Loading from "../components/Loading"
 import * as React from 'react';
 import PageTracker from "../components/PageTracker";
 import ListCoinCard from "../components/ListCoinCard";
+import { CoinStructure,TrendingCoin,TrendingNFT,TrendingReturn,CoinFromList } from "../interfaces/interfaces";
 export default function Coins(){
 
     const [coinsList,setCoinsList] = React.useState([])
@@ -16,10 +17,6 @@ export default function Coins(){
         console.log(currPage)
     }
     const chosenPage= (page:number)=>{
-        // backgroundColor:'#FFFFFF':
-        // currPage==page?
-        //     return {backgroundColor:'#FFFFFF'}
-        // : return null
         if(currPage==page){
             return {backgroundColor:'#244031'}
         }
@@ -52,15 +49,8 @@ export default function Coins(){
     };
     
     const itemsPerPage = 25;
-    // function ascendingPriceSort(coins:typeof coinsList){
-    //     //coin.currentprice
-    //     for(let i = 0;i<coins.length;i++){
-    //         console.log(coins[i].current_price)
-    //     }
-    // }
-    function ascendingPriceSort(coins:typeof coinsList) {
+    function ascendingPriceSort(coins:CoinFromList[]) {
         const n = coins.length;
-    
         // Bubble sort algorithm
         for (let i = 0; i < n - 1; i++) {
             for (let j = 0; j < n - i - 1; j++) {
@@ -71,9 +61,10 @@ export default function Coins(){
                 }
             }
         }
+        console.log(coins)
         return coins;
     }
-    function descendingPriceSort(coins:typeof coinsList) {
+    function descendingPriceSort(coins:CoinFromList[]) {
         const n = coins.length;
     
         // Bubble sort algorithm for descending order
@@ -89,7 +80,7 @@ export default function Coins(){
     
         return coins;
     }
-    function descendingMarketCapSort(coins:typeof coinsList) {
+    function descendingMarketCapSort(coins:CoinFromList[]) {
         const n = coins.length;
     
         // Bubble sort algorithm for descending order
@@ -105,9 +96,8 @@ export default function Coins(){
     
         return coins;
     }
-    function ascendingMarketCapSort(coins:typeof coinsList):typeof coinsList{
+    function ascendingMarketCapSort(coins:CoinFromList[]){
         const n = coins.length;
-    
         // Bubble sort algorithm
         for (let i = 0; i < n - 1; i++) {
             for (let j = 0; j < n - i - 1; j++) {
@@ -118,7 +108,6 @@ export default function Coins(){
                 }
             }
         }
-    
         return coins;
     }
     
@@ -127,7 +116,7 @@ export default function Coins(){
     // make a alteredList that will be changed depending on the
     //  specific order we want and then use that to pass it into 
     // paginatedCoinsList function
-    const alteredList=():typeof coinsList =>{
+    const alteredList=():CoinFromList[] =>{
         // default is decsMarketCap, so return coinList as last option
         switch(listOrder){
             case 'descMarket':
@@ -271,14 +260,9 @@ export default function Coins(){
     return(
         <div className ='home coins'>
             <div className = 'title'>
-                <h3>COINS</h3>
+                <h3>🟡COINS🟡</h3>
                 <h4>Top 250 coins in descending market cap.</h4>
-                {/* <button onClick ={()=>(ascendingPriceSort(coinsList))}>click me</button> */}
-                {/* <button onClick ={()=>(console.log(coinsList))}>click me</button> */}
-            </div>
-            
-            {/* <h4>Coins sorted by market cap.</h4>     */}
-            
+            </div>    
                 <div className="coins-list-label">
                     <p className="rank">Rank</p>
                     <p className="image">Coin</p>
@@ -324,11 +308,11 @@ export default function Coins(){
                     
                 </div>
                 <div className = 'coins-list'>
-                    {loaded?
+                    {/* {loaded? */}
                     <div className="coins-scroll-area">
                         {correct_page()}
                     </div>
-                    :<Loading/>}
+                    {/* // :<Loading/>} */}
                     
             </div>
             {/* <PageTracker/> */}
