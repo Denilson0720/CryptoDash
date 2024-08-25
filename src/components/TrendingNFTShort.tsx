@@ -2,9 +2,9 @@ import TrendingNFTProps from '../interfaces/TrendingNFTProps'
 
 export default function TrendingNFTShort(props:TrendingNFTProps){
     // const [seedNFTdata, setSeedNFTdata] = React.useState(nftData);
-    const price=(coin:number)=>{
-        return coin.toString().substring(0,8)
-    }
+    // const price=(coin:number)=>{
+    //     return coin.toString().substring(0,8)
+    // }
     const percentChangeDay = (coin:string) =>{
         // let str= coinData.item.data.price_change_percentage_24h.usd;
         let str:string = coin;

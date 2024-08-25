@@ -7,34 +7,7 @@ import {
   axisBottom,
   axisLeft,
 } from "d3";
-//data
-// array of 185 floats
-// sparklines = [1,...184]
-// const data = [
-//   { x: 0, y: 30 },
-//   { x: 0.5, y: 10 },
-//   { x: 1, y: 50 },
-//   { x: 1.5, y: 5 },
-//   { x: 2, y: 30 },
-//   { x: 2.5, y: 45 },
-//   { x: 3, y: 20 },
-//   { x: 3.5, y: 60 },
-//   { x: 4, y: 15 },
-//   { x: 4.5, y: 35 },
-//   { x: 5, y: 25 },
-//   { x: 5.5, y: 55 },
-//   { x: 6, y: 10 },
-//   { x: 6.5, y: 40 },
-//   { x: 7, y: 30 },
-//   { x: 7.5, y: 50 },
-//   { x: 8, y: 20 },
-//   { x: 8.5, y: 45 },
-//   { x: 9, y: 15 },
-//   { x: 9.5, y: 55 }
-// ];
-// const data = ()=>{
 
-// }
 //chart component
 function LineChart({data}){
 

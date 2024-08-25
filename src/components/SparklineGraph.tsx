@@ -1,6 +1,6 @@
 import { Line } from 'react-chartjs-2';
 import { CoinStructure } from '../interfaces/interfaces';
-import {useEffect,useState} from 'react'
+import {useState} from 'react'
 import {
     Chart as ChartJS,
     LineElement,
