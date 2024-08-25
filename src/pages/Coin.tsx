@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom"
 import {useState,useEffect} from 'react'
-import { CoinStructure } from "../interfaces/interfaces"
+import { CoinStructure,error } from "../interfaces/interfaces"
 import { Link } from "react-router-dom"
 import SparklineGraph from '../components/SparklineGraph'
+import { getCoin } from "../api"
 export default function Coin(){
     const { id } = useParams()
     const [coinData,setCoinData] = useState<CoinStructure>()
@@ -32,27 +33,21 @@ export default function Coin(){
         }
         return n.toString().slice(0,5)
     }
-    async function getCoin(){
-        const options ={
-            method:'GET',
-            headers:{'x_cg_demo_api_key': 'CG-k9VxGCUB49Nni8pSRAfCD6QE'}
-        }
-        try{
-            const response = await fetch(`https://api.coingecko.com/api/v3/coins/${id}?sparkline=true`, options);
-            if (!response.ok){
-                throw new Error(`HTTP error! status: ${response.status}`)
-            }
-            const data = await response.json();
-            console.log(`${id} :`, data)
-            // return data
-            setCoinData(data)
-        }catch(err){
-            console.log(`Error fetching ${id} data:`, err);
-            return null
-        }
+    async function loadCoin(){
+        // getCoin(id) -> expects string id of coin
+        getCoin(id)
+            .then((data:CoinStructure)=>{
+                if(data){
+                    setCoinData(data)
+                    console.log(`succesully loaded ${id} coin data`)
+                }
+            })
+            .catch((error:error)=>{
+                console.log(error)
+            })
     }
     useEffect(()=>{
-        getCoin()
+        loadCoin()
     },[])
     return(
         <div className = 'home coin'>

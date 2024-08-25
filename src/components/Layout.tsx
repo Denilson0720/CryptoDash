@@ -11,12 +11,7 @@ export default function Layout(){
         setPosition({ x: posX, y: posY });
     };
     return(
-        <div className='main-ctn spotlight-tracker'
-        // onMouseMove={handleMouseMove}
-        // style={{
-        // backgroundImage: `radial-gradient(circle at ${position.x}% ${position.y}%, rgba(161,188,137, 1) 00%, rgba(148,192,123, 0.5) 60%)`,
-        // }}
-        >
+        <div className='main-ctn'>
             <Header/>
             <Outlet/>
             <Footer/>

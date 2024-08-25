@@ -1,18 +1,15 @@
-import Loading from "../components/Loading"
 import * as React from 'react';
-import PageTracker from "../components/PageTracker";
 import ListCoinCard from "../components/ListCoinCard";
-import { CoinStructure,TrendingCoin,TrendingNFT,TrendingReturn,CoinFromList } from "../interfaces/interfaces";
+import { CoinFromList, error } from "../interfaces/interfaces";
+import { getCoinsList } from '../api';
 export default function Coins(){
 
-    const [coinsList,setCoinsList] = React.useState([])
+    const [coinsList,setCoinsList] = React.useState<CoinFromList[]>([])
     const [currPage,setCurrPage] = React.useState<number>(1)
-    const [loaded,setLoaded] = React.useState<boolean>(false)
     const [descMarketCapSymbol,setDescMarketCapSymbol] = React.useState<boolean|null>(true)
     const [ascPriceSymbol,setAscPriceSymbol] = React.useState<boolean|null>(null)
     const [listOrder, setListOrder] = React.useState<string>('descMarket')
     const changePage = (page:number)=>{
-        // currPage = page
         setCurrPage(page)
         console.log(currPage)
     }
@@ -22,22 +19,17 @@ export default function Coins(){
         }
 
     }
-    async function getCoinsList(){
-        const options = {
-            method: 'GET',
-            headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-k9VxGCUB49Nni8pSRAfCD6QE'}
-          };
-        try{
-            const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=250&page=1', options)
-            if (!response.ok){
-                throw new Error(`HTTP error! states: ${response.status}`)
-            }
-            const data = await response.json();
-            setCoinsList(data)
-            setLoaded(true)
-        }catch(err){
-            console.log(`Error fetching coins list: ${err}`)
-        }
+    async function loadCoinsList(){
+        getCoinsList()
+            .then((data:CoinFromList[])=>{
+                if(data){
+                    setCoinsList(data)
+                    console.log('coins list on coins page loaded succesfully')
+                }
+            })
+            .catch((error:error)=>{
+                console.log(error)
+            })
     }
     const paginate = (items: any[], itemsPerPage: number) => {
         const pages = [];
@@ -255,7 +247,7 @@ export default function Coins(){
     }
     
     React.useEffect(()=>{
-        getCoinsList()
+        loadCoinsList()
     },[])
     return(
         <div className ='home coins'>
