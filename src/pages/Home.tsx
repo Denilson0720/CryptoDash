@@ -19,12 +19,12 @@ function a11yProps(index: number) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-interface dummy{
-    // data:{
-    coins:[];
-    nfts:[];
+// interface dummy{
+//     // data:{
+//     coins:[];
+//     nfts:[];
 
-}
+// }
 export default function Home(){
 
 
@@ -42,9 +42,11 @@ export default function Home(){
     }
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
       setValue(newValue);
+      console.log(event)
     };
     const handleBitcoinChange = (event: React.SyntheticEvent, newValue: number) => {
         setCurrencyValue(newValue);
+        console.log(event)
     };
     async function loadEthereum(){
         getEthereum()

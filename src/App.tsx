@@ -1,15 +1,10 @@
-import React from 'react';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Layout from './components/Layout';
 import Unfound from './pages/Unfound'
 import Home from './pages/Home';
-import TrendingLayout from './components/TrendingLayout';
 import Search from './pages/Search'
-import TrendingCoins from './pages/TrendingCoins';
-import TrendingNFTS from './pages/TrendingCoins';
 import Coins from './pages/Coins';
 import Coin from './pages/Coin';
-// import NFTS from './pages/NFTS';
 import NFTS from './pages/NFTS'
 
 
