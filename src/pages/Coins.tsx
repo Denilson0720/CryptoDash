@@ -2,6 +2,7 @@ import * as React from 'react';
 import ListCoinCard from "../components/ListCoinCard";
 import { CoinFromList, error } from "../interfaces/interfaces";
 import { getCoinsList } from '../api';
+import LoadingCoinsList from '../components/LoadingCoinsList';
 export default function Coins(){
 
     const [coinsList,setCoinsList] = React.useState<CoinFromList[]>([])
@@ -9,6 +10,7 @@ export default function Coins(){
     const [descMarketCapSymbol,setDescMarketCapSymbol] = React.useState<boolean|null>(true)
     const [ascPriceSymbol,setAscPriceSymbol] = React.useState<boolean|null>(null)
     const [listOrder, setListOrder] = React.useState<string>('descMarket')
+    const [loaded,setLoaded] = React.useState<boolean>(false)
     const changePage = (page:number)=>{
         setCurrPage(page)
         console.log(currPage)
@@ -26,6 +28,7 @@ export default function Coins(){
                     setCoinsList(data)
                     console.log('coins list on coins page loaded succesfully')
                 }
+                setLoaded(true)
             })
             .catch((error:error)=>{
                 console.log(error)
@@ -254,59 +257,58 @@ export default function Coins(){
             <div className = 'title'>
                 <h3>🟡COINS🟡</h3>
                 <h4>Top 250 coins in descending market cap.</h4>
-            </div>    
+            </div>
+            <div className='coins-list-ctn'>
+                
                 <div className="coins-list-label">
-                    <p className="rank">Rank</p>
-                    <p className="image">Coin</p>
-                    <p className="name">Name</p>
-                    <p className="symbol">Symbol</p>
-                    <p 
-                        className="price"
-                        onClick = {()=>{
-                            if(listOrder=='ascPrice'){
-                                setListOrder('dscPrice')
-                                setAscPriceSymbol(false)
-                                setDescMarketCapSymbol(null)
-                            }
-                            else{
-                                setListOrder('ascPrice')
-                                setAscPriceSymbol(true)
-                                setDescMarketCapSymbol(null)
-                            }
+                        <p className="rank">Rank</p>
+                        <p className="image">Coin</p>
+                        <p className="name">Name</p>
+                        <p className="symbol">Symbol</p>
+                        <p 
+                            className="price"
+                            onClick = {()=>{
+                                if(listOrder=='ascPrice'){
+                                    setListOrder('dscPrice')
+                                    setAscPriceSymbol(false)
+                                    setDescMarketCapSymbol(null)
+                                }
+                                else{
+                                    setListOrder('ascPrice')
+                                    setAscPriceSymbol(true)
+                                    setDescMarketCapSymbol(null)
+                                }
 
-                        }}
+                            }}
 
-                    >Price{ascPriceSymbol!=null?orderSymbol(ascPriceSymbol):null}</p>
-                    <p className="percent-change">24HR % Change</p>
-                    <p 
-                        className="market-cap"
-                        // onClick ={()=>(setDescMarketCap(!descMarketCap))}
-                        onClick ={()=>{
-                            if(listOrder=='descMarket'){
-                                setListOrder('ascMarket')
-                                setDescMarketCapSymbol(false)
-                                setAscPriceSymbol(null)
+                        >Price{ascPriceSymbol!=null?orderSymbol(ascPriceSymbol):null}</p>
+                        <p className="percent-change">24HR % Change</p>
+                        <p 
+                            className="market-cap"
+                            onClick ={()=>{
+                                if(listOrder=='descMarket'){
+                                    setListOrder('ascMarket')
+                                    setDescMarketCapSymbol(false)
+                                    setAscPriceSymbol(null)
 
-                            }
-                            else{
-                                setListOrder('descMarket')
-                                setDescMarketCapSymbol(true)
-                                setAscPriceSymbol(null)
-                            }
-                        }}
-                    >Market Cap {descMarketCapSymbol!=null?orderSymbol(!descMarketCapSymbol):null}</p>
-                    <p className="total-volume">Total Volume</p>
-                    <p className="link"> -- </p>
-                    
+                                }
+                                else{
+                                    setListOrder('descMarket')
+                                    setDescMarketCapSymbol(true)
+                                    setAscPriceSymbol(null)
+                                }
+                            }}
+                        >Market Cap {descMarketCapSymbol!=null?orderSymbol(!descMarketCapSymbol):null}</p>
+                        <p className="total-volume">Total Volume</p>
+                        <p className="link"> -- </p>
+                        
                 </div>
                 <div className = 'coins-list'>
-                    {/* {loaded? */}
                     <div className="coins-scroll-area">
-                        {correct_page()}
+                            {paginatedCoinsList?correct_page():<LoadingCoinsList/>}
                     </div>
-                    {/* // :<Loading/>} */}
-                    
-            </div>
+                </div>
+            </div>    
             {/* <PageTracker/> */}
             <div className ='page-tracker'>
                 <span style={chosenPage(1)} onClick = {()=>changePage(1)}>1</span>

@@ -4,6 +4,7 @@ import { CoinStructure,error } from "../interfaces/interfaces"
 import { Link } from "react-router-dom"
 import SparklineGraph from '../components/SparklineGraph'
 import { getCoin } from "../api"
+import LoadingCoin from "../components/LoadingCoin"
 export default function Coin(){
     const { id } = useParams()
     const [coinData,setCoinData] = useState<CoinStructure>()
@@ -51,9 +52,11 @@ export default function Coin(){
     },[])
     return(
         <div className = 'home coin'>
+
             <Link className="back-button" to='/coins'>← Back to Coins</Link>
+            {coinData?
             <div className="coin-info">
-                {coinData?
+                {/* // LEFT SIDE DATA */}
                 <div className = 'left'>
                     <div className = 'title'>
                         <img src={coinData?.image.large} alt="" />
@@ -121,9 +124,7 @@ export default function Coin(){
                     <p>Circulating Supply: <span className = 'data'>{addCommas(coinData?.market_data.circulating_supply)}</span></p>
                     <p>Last updated on <span className='data'>{coinData?.market_data.last_updated}</span></p>
                 </div>
-                :
-                <p>Loading...</p>
-                }
+                {/* RIOGHT SIDE, GRAPH */}
                 <div className = 'right'>
                     {coinData?
                     <SparklineGraph
@@ -131,8 +132,9 @@ export default function Coin(){
                     />
                     :null}
                 </div>
-            
-            </div>
+               
+           </div>
+            :<LoadingCoin/>}
         </div>
     )
 }

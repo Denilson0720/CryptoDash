@@ -9,6 +9,7 @@ import SmCoinCard from '../components/SmCoinCard';
 import CustomTabPanel from '../components/CustomTabPanel'
 import SparklineGraph from '../components/SparklineGraph'
 import LoadingSmCard from '../components/LoadingSmCard';
+import Loading from '../components/LoadingTreding';
 // import {getTrending,getBitcoin,getEthereum} from '../api.js'
 import {getTrending,getBitcoin,getEthereum} from '../api'
 import {error,CoinStructure,TrendingReturn,TrendingCoin,TrendingNFT} from '../interfaces/interfaces'
@@ -135,9 +136,10 @@ export default function Home(){
     }
     React.useEffect(()=>{
         const loadAllData = async () => {
-            await loadTrending();
+            // await loadTrending();
             await loadBitcoin();
             await loadEthereum();
+            await loadTrending();
         };
         loadAllData();
     },[])
@@ -185,7 +187,11 @@ export default function Home(){
                             <p className = 'graph'>7 Day Overview</p>                          
                         </div>
                         <div className='scroll-area'>
-                            {coinElements}
+                            {
+                                trendingCoins?coinElements:<Loading/>
+                                // trendingCoins?<Loading/>:<Loading/>
+                            }
+
 
                         </div>
                     </CustomTabPanel>
@@ -199,7 +205,7 @@ export default function Home(){
                             <p className = 'graph'>1 Day Overview</p>
                         </div>
                         <div className='scroll-area'>
-                            {nftElements}
+                            {trendingNFTS?nftElements:<Loading/>}
                         </div>
                     </CustomTabPanel>
                 </Box>
