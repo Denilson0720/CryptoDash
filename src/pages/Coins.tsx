@@ -10,7 +10,7 @@ export default function Coins(){
     const [descMarketCapSymbol,setDescMarketCapSymbol] = React.useState<boolean|null>(true)
     const [ascPriceSymbol,setAscPriceSymbol] = React.useState<boolean|null>(null)
     const [listOrder, setListOrder] = React.useState<string>('descMarket')
-    const [loaded,setLoaded] = React.useState<boolean>(false)
+    // const [loaded,setLoaded] = React.useState<boolean>(false)
     const changePage = (page:number)=>{
         setCurrPage(page)
         console.log(currPage)
@@ -28,7 +28,7 @@ export default function Coins(){
                     setCoinsList(data)
                     console.log('coins list on coins page loaded succesfully')
                 }
-                setLoaded(true)
+                // setLoaded(true)
             })
             .catch((error:error)=>{
                 console.log(error)
