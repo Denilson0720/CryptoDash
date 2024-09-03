@@ -72,8 +72,9 @@ export default function Coin(){
                         {/* <p>{coinData?.description.en}</p> */}
                     </div>
                     <hr />
+                    <p className = 'price-change-title'>Price Change Percentage:</p>
                     <div className = 'price-change-percent-ctn'>
-                        <p>Price Change Percentage:</p>
+                        {/* <p>Price Change Percentage:</p> */}
                         <div>
                             <span>24hr</span>
                             <span>7 day</span>

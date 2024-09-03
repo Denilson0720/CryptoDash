@@ -29,7 +29,7 @@ export default function Header(){
                 to='/search'
                 style={({isActive})=>isActive?activeStyles:undefined}
             >
-                SEARCH</NavLink>
+            SEARCH</NavLink>
 
         </nav>
     )

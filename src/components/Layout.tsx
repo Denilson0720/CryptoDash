@@ -1,10 +1,12 @@
 import {Outlet} from 'react-router-dom';
-import Header from './Header';
 import Footer from './Footer';
+import ResponsiveHeader from './ResponsiveHeader';
 export default function Layout(){
     return(
         <div className='main-ctn'>
-            <Header/>
+            {/* <Header/> */}
+            {/* <ResponsiveAppBar/> */}
+            <ResponsiveHeader/>
             <Outlet/>
             <Footer/>
         </div>

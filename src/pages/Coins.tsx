@@ -3,6 +3,8 @@ import ListCoinCard from "../components/ListCoinCard";
 import { CoinFromList, error } from "../interfaces/interfaces";
 import { getCoinsList } from '../api';
 import LoadingCoinsList from '../components/LoadingCoinsList';
+import  bitcoin_icon from '../assets/bitcoin_icon.png'
+import ethereum_icon from '../assets/ethereum_icon.png'
 export default function Coins(){
 
     const [coinsList,setCoinsList] = React.useState<CoinFromList[]>([])
@@ -255,8 +257,8 @@ export default function Coins(){
     return(
         <div className ='home coins'>
             <div className = 'title'>
-                <h3>🟡COINS🟡</h3>
-                <h4>Top 250 coins in descending market cap.</h4>
+                <h3><img src={bitcoin_icon} alt="bitcoin symbol" /> COINS<img src={ethereum_icon} alt="bitcoin symbol" /></h3>
+                <h4>Top 250 Coins - Sorted by desc. Market Cap</h4>
             </div>
             <div className='coins-list-ctn'>
                 
@@ -304,9 +306,9 @@ export default function Coins(){
                         
                 </div>
                 <div className = 'coins-list'>
-                    <div className="coins-scroll-area">
-                            {paginatedCoinsList?correct_page():<LoadingCoinsList/>}
-                    </div>
+                        {coinsList?correct_page():<LoadingCoinsList/>}
+                        {/* {correct_page} */}
+                        {/* <LoadingCoinsList/> */}
                 </div>
             </div>    
             {/* <PageTracker/> */}

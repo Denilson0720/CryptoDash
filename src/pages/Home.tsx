@@ -1,8 +1,5 @@
-// import { Outlet,NavLink,Link } from "react-router-dom"
 import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import {Tabs,Tab,Box,Tooltip} from '@mui/material'
 import TrendingCoinShort from '../components/TrendingCoinShort';
 import TrendingNFTShort from '../components/TrendingNFTShort';
 import SmCoinCard from '../components/SmCoinCard';
@@ -10,7 +7,6 @@ import CustomTabPanel from '../components/CustomTabPanel'
 import SparklineGraph from '../components/SparklineGraph'
 import LoadingSmCard from '../components/LoadingSmCard';
 import Loading from '../components/LoadingTreding';
-// import {getTrending,getBitcoin,getEthereum} from '../api.js'
 import {getTrending,getBitcoin,getEthereum} from '../api'
 import {error,CoinStructure,TrendingReturn,TrendingCoin,TrendingNFT} from '../interfaces/interfaces'
 // MATERIAL UI functional component
@@ -20,12 +16,6 @@ function a11yProps(index: number) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-// interface dummy{
-//     // data:{
-//     coins:[];
-//     nfts:[];
-
-// }
 export default function Home(){
 
 
@@ -36,11 +26,9 @@ export default function Home(){
     const [trendingNFTS, setTrendingNFTS] = React.useState<TrendingNFT[]>([]);
     const [bitcoinData,setBitcoinData] = React.useState<CoinStructure|null>();
     const [ethereumData,setEthereumData] = React.useState<CoinStructure|null>();
-    const [selectedCurrency, setCurrency] = React.useState('btc');
-
-    function handleCurrencyChange(currency:string):void{
-        setCurrency(currency)
-    }
+    // const [selectedCurrency, setCurrency] = React.useState('btc');
+    // true == btc, false == usd
+    const [selectedCurrency,setCurrency] =React.useState<boolean>(false);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
       setValue(newValue);
       console.log(event)
@@ -93,7 +81,8 @@ export default function Home(){
                 key={index}
                 score={index}
                 coin = {coin}
-                currency={selectedCurrency}
+                // expecting btc or eth
+                currency={selectedCurrency===true?'btc':'usd'}
             />
     ))): null
     const nftElements = trendingNFTS ?(
@@ -131,9 +120,9 @@ export default function Home(){
             // index ={1}
         />
     ):<LoadingSmCard/>
-    const selectedStyle = {
-        color:'#9cd37c'
-    }
+    // const selectedStyle = {
+        // color:'#9cd37c'
+    // }
     React.useEffect(()=>{
         const loadAllData = async () => {
             // await loadTrending();
@@ -144,12 +133,13 @@ export default function Home(){
         loadAllData();
     },[])
     return(
-        // HOME LEFT
+        
         <div className ='home'>
+            {/* // HOME LEFT */}
             <div className = 'home-left'>
                 <h3>🔥TRENDING🔥</h3>
                 <Box sx={{ width: '100%' }}>
-                    <Box sx={{border:'none'}}>
+                    {/* <Box sx={{border:'none'}}> */}
                         <Tabs 
                             value={value} 
                             onChange={handleChange} 
@@ -163,9 +153,10 @@ export default function Home(){
                                 label="NFTS" 
                                 {...a11yProps(1)}/>
                         </Tabs>
-                    </Box>
+                    {/* </Box> */}
+                    {/* COINS TAB */}
                     <CustomTabPanel value={value} index={0}>
-                        <div className ='currency-button-ctn'>
+                        {/* <div className ='currency-button-ctn'>
                             <nav 
                                 style={selectedCurrency=='btc'?selectedStyle:{}}
                                 onClick={()=>(handleCurrencyChange('btc'))}
@@ -177,12 +168,18 @@ export default function Home(){
                                 className = 'currency-selectors'
                             >$ USD</nav>
 
-                        </div>
+                        </div> */}
                         <div className ='short-coin-label'>
                             <p className ='score'>Score</p>
                             <p className ='img'>Coin</p>
                             <p className ='name'>Name</p>
-                            <p className = 'price'>Price</p>
+                            <Tooltip title='Change Currency' arrow={true} placement='top' className='tooltip'>
+                            <p className = 'price'
+                                onClick ={()=>setCurrency(x=>!x)}
+                            >Price 
+                            <span className='currency'> {selectedCurrency==true?'₿':'$'}</span>
+                            </p>
+                            </Tooltip>
                             <p className = 'change'>24HR% Change</p>
                             <p className = 'graph'>7 Day Overview</p>                          
                         </div>
@@ -191,10 +188,9 @@ export default function Home(){
                                 trendingCoins?coinElements:<Loading/>
                                 // trendingCoins?<Loading/>:<Loading/>
                             }
-
-
                         </div>
                     </CustomTabPanel>
+                    {/* NFTS TAB */}
                     <CustomTabPanel value={value} index={1}>
                         <div className ='short-nft-label'>
                             <p className ='score'>Score</p>

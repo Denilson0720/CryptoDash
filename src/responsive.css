@@ -1,0 +1,8 @@
+/* seperation of concerns, base styling is located in index.css */
+/* small mobile up to 480px */
+@media (max-width:480px) {
+    .home{
+        flex-direction: column;
+        border:2px solid pink;
+    }
+}

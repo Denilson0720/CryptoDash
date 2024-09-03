@@ -1,17 +1,12 @@
 import TrendingCoinProps from '../interfaces/TrendingCoinProps'
+import { Link } from 'react-router-dom';
 // import TrendingCoin form '../interfaces/interfaces'
 // {key:number;score:number:coin:TrendingCoin;currency:string
 // }
 // export default function TrendingCoinShort({score:number,coin:TrendingCoin,currency:string})
 export default function TrendingCoinShort(props:TrendingCoinProps){
-    /*
-    name:string,
-    symbol:string,
-    24hr%:number,
-    sparkline:string
-    price:number
-     */
-    const price_in_currency = props.currency === 'btc'? props.coin.item.data.price:props.coin.item.price_btc;
+
+    const price_in_currency = props.currency === 'usd'? props.coin.item.data.price:props.coin.item.price_btc;
     const price=(coin:number)=>{
         return coin.toString().substring(0,6)
     }
@@ -31,7 +26,7 @@ export default function TrendingCoinShort(props:TrendingCoinProps){
                 {/* <img className = 'short-img' src={seedData.item.small} alt="" /> */}
                 <img className = 'short-img' src={props.coin.item.small} alt="" />
                 {/* <p className = 'name'>{seedData.item.symbol}</p> */}
-                <p className = 'name'>{props.coin.item.symbol}</p>
+                <p className = 'name'><Link to={`/coins/${props.coin.item.id}`} key = {props.coin.item.coin_id}>{props.coin.item.symbol}</Link></p>
                 {/* <p className='price'>₿ {price(seedData.item.data.price)}</p> */}
                 {/* <p className='price'>₿ {price(props.coin.item.data.price)}</p> */}
                 <p className = 'price'>{props.currency==='usd'?'$':'₿'}{price(price_in_currency)}</p>
