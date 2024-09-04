@@ -52,7 +52,7 @@ export default function Coin(){
             await new Promise(resolve => setTimeout(resolve, 1000));
             loadCoin()
         }
-        loadData()
+        loadData()   
     },[])
     return(
         <div className = 'home coin'>
@@ -138,7 +138,7 @@ export default function Coin(){
                     :null}
                 </div>
                
-           </div>
+        </div>
             :<LoadingCoin/>}
         </div>
     )
