@@ -6,7 +6,7 @@ import LoadingCoinsList from '../components/LoadingCoinsList';
 import  bitcoin_icon from '../assets/bitcoin_icon.png'
 import ethereum_icon from '../assets/ethereum_icon.png'
 export default function Coins(){
-
+    // possibly change default coinsList state to null from []
     const [coinsList,setCoinsList] = React.useState<CoinFromList[]>([])
     const [currPage,setCurrPage] = React.useState<number>(1)
     const [descMarketCapSymbol,setDescMarketCapSymbol] = React.useState<boolean|null>(true)
@@ -252,7 +252,12 @@ export default function Coins(){
     }
     
     React.useEffect(()=>{
-        loadCoinsList()
+        const loadData = async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 1-second delay
+            loadCoinsList()
+        }
+        loadData()
+       
     },[])
     return(
         <div className ='home coins'>
@@ -306,9 +311,8 @@ export default function Coins(){
                         
                 </div>
                 <div className = 'coins-list'>
-                        {coinsList?correct_page():<LoadingCoinsList/>}
-                        {/* {correct_page} */}
-                        {/* <LoadingCoinsList/> */}
+                        {/*coinsList is an array and typescript checks referecnes    */}
+                        {coinsList.length>0?correct_page():<LoadingCoinsList/>}
                 </div>
             </div>    
             {/* <PageTracker/> */}

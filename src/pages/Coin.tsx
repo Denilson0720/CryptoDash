@@ -48,7 +48,11 @@ export default function Coin(){
             })
     }
     useEffect(()=>{
-        loadCoin()
+        const loadData = async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            loadCoin()
+        }
+        loadData()
     },[])
     return(
         <div className = 'home coin'>

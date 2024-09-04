@@ -72,7 +72,9 @@ export default function Home(){
                 setTrendingNFTS(data.nfts)
             })
             .catch((error:error)=>{
+                console.log('cant load trending data')
                 console.log(error)
+
             })
     } 
     const coinElements = trendingCoins ?( 
@@ -126,9 +128,16 @@ export default function Home(){
     React.useEffect(()=>{
         const loadAllData = async () => {
             // await loadTrending();
-            await loadBitcoin();
-            await loadEthereum();
+            // await loadBitcoin();
+            // await loadEthereum();
+            // await loadTrending();
             await loadTrending();
+            await new Promise(resolve => setTimeout(resolve, 2000)); // 1-second delay
+            await loadBitcoin();
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 1-second delay
+            await loadEthereum();
+           
+           
         };
         loadAllData();
     },[])
@@ -153,22 +162,8 @@ export default function Home(){
                                 label="NFTS" 
                                 {...a11yProps(1)}/>
                         </Tabs>
-                    {/* </Box> */}
                     {/* COINS TAB */}
                     <CustomTabPanel value={value} index={0}>
-                        {/* <div className ='currency-button-ctn'>
-                            <nav 
-                                style={selectedCurrency=='btc'?selectedStyle:{}}
-                                onClick={()=>(handleCurrencyChange('btc'))}
-                                className = 'currency-selectors'
-                            >₿ BTC</nav>
-                            <nav 
-                                style={selectedCurrency=='usd'?selectedStyle:{}}
-                                onClick = {()=>(handleCurrencyChange('usd'))}
-                                className = 'currency-selectors'
-                            >$ USD</nav>
-
-                        </div> */}
                         <div className ='short-coin-label'>
                             <p className ='score'>Score</p>
                             <p className ='img'>Coin</p>
@@ -184,10 +179,8 @@ export default function Home(){
                             <p className = 'graph'>7 Day Overview</p>                          
                         </div>
                         <div className='scroll-area'>
-                            {
-                                trendingCoins?coinElements:<Loading/>
-                                // trendingCoins?<Loading/>:<Loading/>
-                            }
+                            {/* {coinElements?coinElements:<Loading/>} */}
+                            {trendingCoins.length>0?coinElements:<Loading/>}
                         </div>
                     </CustomTabPanel>
                     {/* NFTS TAB */}
