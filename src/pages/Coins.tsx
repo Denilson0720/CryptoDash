@@ -253,7 +253,7 @@ export default function Coins(){
     
     React.useEffect(()=>{
         const loadData = async () => {
-            await new Promise(resolve => setTimeout(resolve, 1000)); // 1-second delay
+            await new Promise(resolve => setTimeout(resolve, 4000)); // 1-second delay
             loadCoinsList()
         }
         loadData()

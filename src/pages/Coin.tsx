@@ -6,6 +6,7 @@ import SparklineGraph from '../components/SparklineGraph'
 import { getCoin } from "../api"
 import LoadingCoin from "../components/LoadingCoin"
 export default function Coin(){
+    // gets id from query request parameter
     const { id } = useParams()
     const [coinData,setCoinData] = useState<CoinStructure>()
     // const options = {method: 'GET', headers: {accept: 'application/json'}};
@@ -34,8 +35,14 @@ export default function Coin(){
         }
         return n.toString().slice(0,5)
     }
+    // add a fallback, if user refreshes from /coin, prop wont be present 
+    // add a default coin to request
     async function loadCoin(){
         // getCoin(id) -> expects string id of coin
+        // let curr_id = id
+        // if(!curr_id){
+        //     curr_id = 'bitcoin'
+        // }
         getCoin(id)
             .then((data:CoinStructure)=>{
                 if(data){
@@ -49,10 +56,11 @@ export default function Coin(){
     }
     useEffect(()=>{
         const loadData = async () => {
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 4000));
             loadCoin()
         }
         loadData()   
+        console.log(id)
     },[])
     return(
         <div className = 'home coin'>

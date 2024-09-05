@@ -23,7 +23,7 @@ function App() {
           <Route path='coins/:id' element ={<Coin/>}/>
           <Route path="*" element = {<Unfound/>}/>
         </Route>
-        
+        <Route path="*" element = {<Unfound/>}/>
       </Routes>
 
     </BrowserRouter>
