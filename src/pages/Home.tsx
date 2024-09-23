@@ -31,11 +31,11 @@ export default function Home(){
     const [selectedCurrency,setCurrency] =React.useState<boolean>(false);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
       setValue(newValue);
-    //   console.log(event)
+      console.log(event)
     };
     const handleBitcoinChange = (event: React.SyntheticEvent, newValue: number) => {
         setCurrencyValue(newValue);
-        // console.log(event)
+        console.log(event)
     };
     async function loadEthereum(){
         getEthereum()
