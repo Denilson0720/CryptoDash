@@ -36,15 +36,17 @@ body{
 .header{
   display: flex;
   /* border:5px solid white; */
+  /* align-items: flex-start; */
   align-items: center;
-  padding:0 2rem;
+  padding:1.5rem 2rem;
   height:10%;
+
 }
 .header>h1{
+  /* border:2px solid white; */
   margin-right:auto;
-  /* text-decoration: underline; */
+  margin-top:0;
   font-size: 1.4rem;
-  /* border: 2px solid white; */
   width:60%;
 }
 /* navlinks */
@@ -59,23 +61,35 @@ body{
 .drawer{
   width:100%;
   height:100%;
-  background-color: #84a970;
+  /* background-color: #84a970; */
+  /* background-color: #498665; */
+  background-color: #244031;
+  /* background-color: #46775d; */
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
+  /* justify-content: space-between; */
+  align-items:center;
 }
 .drawer>h1,a{
   color:white;  
   text-decoration: none;
-
 }
-
+.drawer>a{
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top:1rem;
+}
+.footer.drawer{
+  position: absolute;
+  bottom: 0;
+  color:white;
+}
 /* FOOTER */
 .footer{  
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background-color:red; */
   /* position: sticky; */
   /* bottom:0; */
   margin-bottom:auto;
@@ -564,6 +578,14 @@ body{
   animation: flip 2s infinite;
 }
 /* } */
+  /* NFTS PAGE */
+  .home.nfts{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:85%;
+  }
  /* COINS PAGE */
 .home.coins{
   justify-content: center;
@@ -871,11 +893,114 @@ body{
   width:60%;
 }
 .coin-info>.right>div{
-  /* border:2px solid red; */
   width:90%;
-  /* height:50%; */
-  /* background-color: white; */
 }
+/* SEARCH PAGE*/
+.home.search{
+  /* border:2px solid red; */
+  justify-content: center;
+  padding:2rem;
+  align-items: center;
+}
+/* SEARCH BOX */
+.custom-searchbar{
+  /* border:2px solid teal; */
+  overflow: hidden;
+  /* max-width: 20rem; */
+  /* height:1rem; */
+  max-width: 15rem;
+  border-radius: 0.5rem;
+  background-color: #305642;
+  /* padding:0; */
+  /* position:relative; */
+  /* box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.1); */
+}
+.custom-searchbar.focused{
+  /* box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.1); */
+  box-shadow: 0px 15px 62px 21px rgba(0,0,0,0.1);
+}
+.custom-searchbar.invalid-coin{
+  border:2px solid rgb(240, 123, 123);
+}
+.search-ctn{
+  width:100%;
+  display: flex;
+  padding-right:0.4rem;
+}
+.custom-searchbar>.search-ctn>input{
+  width:80%;
+  height:2rem;
+  padding:0 1rem;
+  /* background-color: #244031; */
+  background-color: #305642;
+  color:white;
+  padding:0 0.5rem;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 1rem;
+  /* outline:none; */
+  /* border-radius: 0.5rem; */
+}
+
+.search-ctn>input:focus{
+  outline: none;
+}
+
+/* .search-btn and .clear-btn are divs with spans */
+.custom-searchbar>.search-ctn>.search-btn{
+  /* border:2px solid red; */
+  width: 10%;
+  height:2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #305642;
+}
+.search-ctn>.search-btn:hover{
+  cursor: pointer;
+}
+.custom-searchbar>.search-ctn>.clear-btn{
+  width:10%;
+  height:2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #305642;
+}
+.search-ctn>.clear-btn:hover{
+  cursor: pointer;
+}
+.search-dropdown-options{
+  position: fixed;
+  /* border:2px solid red; */
+  z-index: 1;
+  margin:0;
+  width:15rem;
+  max-height:10rem;
+  overflow-y: scroll;
+  background-color: #305642;
+  list-style-type: none;
+  padding:0;
+  border-radius: 0.5rem;
+  /* box-shadow: 0px 10px 15px 5px rgba(0,0,0,0.1); */
+}
+.suggestion-option{
+  /* border:2px solid red; */
+  padding:0.5rem 0 0.5rem 1rem;
+  list-style:none;
+}
+.suggestion-option>hr{
+  border:1px solid gray;
+  align-self: center;
+  width:80%;
+}
+.suggestion-option:hover{
+  background-color: #58816b;
+}
+.suggestion-option.selected {
+  background-color: #58816b; /* Highlight color */
+}
+
+
 
 /* ----------------------------------------------------------------------------------- */
 /* RESPONSIVE STYLES MEDIA QUERIES */
@@ -887,6 +1012,9 @@ body{
   }
   .header>h1{
     font-size: 1.2rem;
+  }
+  .search-bar-widescreen{
+    display: none;
   }
   .home{
     flex-direction: column;

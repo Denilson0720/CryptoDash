@@ -356,3 +356,8 @@ export interface CoinFromList{
     total_supply:number,
     total_volume:number
 }
+export interface CoinListItem{
+    id:string,
+    symbol:string,
+    name:string
+}

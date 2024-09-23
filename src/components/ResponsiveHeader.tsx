@@ -3,7 +3,8 @@ import * as React from 'react'
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import Footer from './Footer';
+import CustomSearchBar from './CustomSearchBar';
 interface Props {
     /**
      * Injected by the documentation to work in an iframe.
@@ -25,9 +26,11 @@ export default function ResponsiveAppBar(props:Props){
     const activeStyles={
       textDecoration:'underline',
       color:'#244031'
-  
     }
-  
+    const drawerActiveStyles={
+        textDecoration:'underline',
+        color:'#9cd37c'
+    }
     return(
         <div className="header">
             <h1> <Link className='title' to={'/'} key = {1}>CRYPTODASH</Link></h1>
@@ -49,12 +52,10 @@ export default function ResponsiveAppBar(props:Props){
                 style={({isActive})=>isActive?activeStyles:undefined}
             >
                 NFTS</NavLink>
-            <NavLink 
-                to='/search'
-                style={({isActive})=>isActive?activeStyles:undefined}
-            >
-            SEARCH</NavLink>
-
+            <div className = 'search-bar-widescreen'>
+                <CustomSearchBar/>
+            </div>
+            
             <IconButton
                 color="inherit"
                 aria-label="open drawer"
@@ -83,35 +84,46 @@ export default function ResponsiveAppBar(props:Props){
             >
             <div className='drawer'>
                 <h1>CryptoDash</h1>
-            <NavLink 
-                to='/'
-                style={({isActive})=>isActive?activeStyles:undefined}
-                // dont make an anonymous function on every render, run func directly
-                // onClick = {()=>handleDrawerToggle}
-                onClick = {handleDrawerToggle}
-            >
-                HOME
-            </NavLink>
-            <NavLink 
-                to='/coins'
-                style={({isActive})=>isActive?activeStyles:undefined}
-                onClick = {handleDrawerToggle}
-            >
-                COINS</NavLink>
-            {/* // change search to magnifying glass icon */}
-            <NavLink 
-                to='/nfts'
-                style={({isActive})=>isActive?activeStyles:undefined}
-                onClick = {handleDrawerToggle}
-            >
-                NFTS</NavLink>
-            <NavLink 
-                to='/search'
-                style={({isActive})=>isActive?activeStyles:undefined}
-                onClick = {handleDrawerToggle}
-            >
-            SEARCH</NavLink>
-            </div>
+                <div className='search-bar-drawer'>
+                    <CustomSearchBar/>
+                </div>
+                <NavLink 
+                    className = 'homelink-drawer'
+                    to='/'
+                    style={({isActive})=>isActive?drawerActiveStyles:undefined}
+                    // dont make an anonymous function on every render, run func directly
+                    // onClick = {()=>handleDrawerToggle}
+                    onClick = {handleDrawerToggle}
+                >
+                    HOME
+                </NavLink>
+                <NavLink 
+                    className='coinslink-drawer'
+                    to='/coins'
+                    style={({isActive})=>isActive?drawerActiveStyles:undefined}
+                    onClick = {handleDrawerToggle}
+                >
+                    COINS</NavLink>
+                {/* // change search to magnifying glass icon */}
+                {/* <NavLink 
+                    to='/nfts'
+                    style={({isActive})=>isActive?activeStyles:undefined}
+                    onClick = {handleDrawerToggle}
+                >
+                    NFTS</NavLink>
+                <NavLink 
+                    to='/search'
+                    style={({isActive})=>isActive?activeStyles:undefined}
+                    onClick = {handleDrawerToggle}
+                >
+                SEARCH</NavLink> */}
+                <div className='footer drawer'>
+                    <Footer/>
+                </div>
+                
+                </div>
+                
+            
                 
             </Drawer>
         </div>

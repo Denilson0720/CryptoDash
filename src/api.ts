@@ -86,3 +86,19 @@ export async function getCoin(id:string|any){
         return null
     }
 }
+export async function getFullCoinsList(){
+    const options ={
+        method:'GET',
+        headers: {accept: 'application/json', 'x-cg-demo-api-key': api_key}
+    }
+    try{
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/list', options);
+        const data = await response.json();
+        
+        // console.log('coins list: ', data)
+        return data
+    }catch(err){
+        console.log(err);
+        return null
+    }
+}
