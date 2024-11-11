@@ -19,7 +19,8 @@ export default function CustomSearchBar(){
     // function to check if coin state in input is a valid one the user can search for
     const checkValidCoin = ()=>{
         // current coin is
-        console.log('current coin state:', coin)
+        // console.log('current coin state:', coin)
+
         // if coin is in suggestions and if coin exists at all
         // const onlyIDSuggestions = suggestions.map((suggestion:any)=>suggestion.id)
         const onlyIDSuggestions = suggestions.map((suggestion: any) =>
@@ -67,7 +68,6 @@ export default function CustomSearchBar(){
         } else {
             setSuggestions([]);
         }
-        // console.log('suggestion set to:', suggestions)
         setSelectedIndex(-1);
     };
     
@@ -159,7 +159,7 @@ export default function CustomSearchBar(){
             .then((data:CoinListItem[])=>{
                 if(data){
                     setCoinsList(data)
-                    console.log('full list of coins:',data)
+                    // console.log('full list of coins:',data)
                 }
             })
             .catch((error:error)=>{
@@ -175,7 +175,7 @@ export default function CustomSearchBar(){
     },[coin])
     useEffect(()=>{
         const loadData = async()=>{
-            await new Promise(resolve => setTimeout(resolve, 2000)); // 5-second delay
+            await new Promise(resolve => setTimeout(resolve, 3000)); // 3-second delay
             loadFullCoinsList()
         }
         loadData()

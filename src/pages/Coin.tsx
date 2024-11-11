@@ -12,6 +12,10 @@ export default function Coin(){
     // const options = {method: 'GET', headers: {accept: 'application/json'}};
     const orderSymbol = (flag:boolean)=>(flag?'▴':'▾')
     const price_percent_change_percentage = coinData? coinData.market_data.price_change_percentage_24h:0.0
+    //for retry mechanism, keep count of how many times weve tried to access data via api
+    const [retryCount,setRetryCount] = useState(0);
+    // only allow 3 retries before user has to manually retry
+    const maxRetries = 3;
     // '#7efc7e':'#fc7e7e'
     const redOrGreen = (value:boolean|undefined|null)=>{
         if(value===undefined||value===null){
@@ -19,8 +23,8 @@ export default function Coin(){
         }
         return value?{color:'#7efc7e'}:{color:'#fc7e7e'}
     }
-    function addCommas(n:number|null):string{
-        if(n===null){return ''}
+    function addCommas(n:number|undefined|null|any):string{
+        if(n===null || n===undefined){return 'N.A.'}
         const numStr = n.toString();
 
         // Use a regular expression to add commas
@@ -37,31 +41,75 @@ export default function Coin(){
     }
     // add a fallback, if user refreshes from /coin, prop wont be present 
     // add a default coin to request
+    /*
     async function loadCoin(){
-        // getCoin(id) -> expects string id of coin
-        // let curr_id = id
-        // if(!curr_id){
-        //     curr_id = 'bitcoin'
-        // }
         getCoin(id)
             .then((data:CoinStructure)=>{
+                // if data fetch was succesful, proceed
                 if(data){
                     setCoinData(data)
+                    console.log(data)
                     console.log(`succesully loaded ${id} coin data`)
                 }
+                // else increase our retry
+    
             })
             .catch((error:error)=>{
                 console.log(error)
+                setRetryCount(retryCount+1)
+
             })
     }
+    */
+    async function loadCoin() {
+        const curr_id = id || 'bitcoin'; // Default to 'bitcoin' if no id is provided
+        
+        try {
+            const data = await getCoin(curr_id);
+            if (data) {
+                setCoinData(data); // Assuming setCoinData updates coinData state
+                console.log(`Successfully loaded ${curr_id} coin data`);
+            } else {
+                throw new Error('No data received');
+            }
+        } catch (error) {
+            console.error(error);
+            setRetryCount(prevCount => prevCount + 1); // Update retry count using previous state
+        }
+    }
+    /*
     useEffect(()=>{
         const loadData = async () => {
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            // 1 second delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
             loadCoin()
         }
-        loadData()   
+        if(!coinData && retryCount <= maxRetries){
+            //if coinData is still empty and we have not passed our alloted maxRetries, retry
+            loadData() 
+        }
+        // loadData()   
         console.log(id)
-    },[])
+        console.log(retryCount)
+    },[retryCount])
+    */
+    useEffect(() => {
+        const loadData = async () => {
+            // Add a delay before retrying
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            loadCoin();
+        };
+    
+        // If coinData is still empty and retries are available
+        if (!coinData && retryCount <= maxRetries) {
+            loadData();
+        }
+    
+        // Logging to debug
+        console.log(`Coin ID: ${id}`);
+        console.log(`Retry Count: ${retryCount}`);
+    
+    }, [retryCount, coinData, id]); // Ensure all relevant dependencies are included    
     return(
         <div className = 'home coin'>
 
@@ -136,6 +184,7 @@ export default function Coin(){
                     <p>Max Supply: <span className = 'data'>{addCommas(coinData?.market_data.max_supply)}</span></p>
                     <p>Circulating Supply: <span className = 'data'>{addCommas(coinData?.market_data.circulating_supply)}</span></p>
                     <p>Last updated on <span className='data'>{coinData?.market_data.last_updated}</span></p>
+                    {/* <button onClick = {()=>console.log(coinData)}>coin</button> */}
                 </div>
                 {/* RIOGHT SIDE, GRAPH */}
                 <div className = 'right'>
@@ -146,8 +195,11 @@ export default function Coin(){
                     :null}
                 </div>
                
-        </div>
-            :<LoadingCoin/>}
+            </div>
+            :
+            
+            <LoadingCoin/>
+            }
         </div>
     )
 }

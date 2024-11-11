@@ -58,6 +58,9 @@ body{
   text-decoration: none;
   /* border:2px solid white; */
 }
+.header>a:hover{
+  cursor: pointer;
+}
 .drawer{
   width:100%;
   height:100%;
@@ -100,6 +103,260 @@ body{
   font-size: 1rem;
   margin:0.8rem 0;
 }
+/* LOGIN PAGE */
+.home.login{
+  /* border:2px solid red; */
+  display: flex;
+  /* justify-content: center; */
+  padding-top:5rem;
+  align-items: center;
+  flex-direction: column;
+}
+.login-error{
+  color:#fc7e7e;
+}
+.form-ctn.login{
+  padding:1rem;
+  border-radius:1.8rem;
+  /* background-color:#305642b2; */
+  /* border:2px solid white; */
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height:50%;
+  /* gap:2rem; */
+  /* justify-content: center; */
+  align-items: center;
+}
+.form-ctn>input,button{
+  width:100%;
+  height:3rem;
+  border-radius: 1rem;
+  border:none;
+  padding:1rem;
+  -webkit-box-shadow: 10px 10px 47px -21px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 47px -21px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 47px -21px rgba(0,0,0,0.75);
+}
+.form-ctn>input{
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  /* background-color:#c2dfd0 */
+}
+.form-ctn>button{
+  font-weight: 600;
+  font-size: .8rem;
+  background-color: #c2dfd0;
+}
+
+
+/* FAVORITES PAGE */
+.home.favorites{
+  /* border:2px solid white; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:2rem;
+  /* width: 100%; */
+  /* height:100%; */
+}
+.home.favorites>button{
+  width:5rem;
+}
+.home.favorites>.user-welcome{
+  display: flex;
+  flex-direction: column;
+  /* border:2px solid white; */
+  width:100%;
+  height:15%;
+  padding-left:4rem;
+  /* padding:0 0 10rem 4rem; */
+}
+.favorite-coins-ctn{
+  /* border:2px solid green; */
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10,1fr);
+  height:80%;
+  width: 100%;
+}
+
+/* LABELS */
+.favorite-coins-ctn>.favorite-title{
+  grid-column: 1/span 3;
+  grid-row: 1;
+  /* align-self: center; */
+  text-align: center;
+}
+.favorite-coins-labels{
+  grid-column: 1 /span 3;
+  grid-row: 2;
+  display:flex;
+  flex-direction:row;
+  /* border:2px solid pink; */
+  background-color:#042814;
+}
+.favorite-coins-labels>p{
+  display: inline-block;
+  /* border:2px solid red; */
+  width:20%;
+  text-align: center;
+}
+/* COINS SCROLL DOWN */
+.favorite-coins{
+  /* border:2px solid red; */
+  grid-column: 1/span 3;
+  grid-row:3/ span 10;
+  overflow: scroll;
+  background-color:#305642;
+
+}
+.favorite-coin-card{
+  display: flex;
+  width: 100%;
+  /* border:2px solid blue; */
+}
+.favorite-coin-card>p{
+  /* border:2px solid red; */
+  width:20%;
+  align-self: center;
+  text-align: center;
+}
+.favorite-coin-img{
+  width:3rem;
+  height:3rem;
+}
+.favorite-graph-ctn{
+  width:50%;
+  /* border:2px solid red; */
+}
+.favorite-coins-ctn>.best-coin-title{
+  grid-column: 4/span 10;
+  grid-row: 1;
+  /* border:2px solid red; */
+  text-align: center;
+}
+/* BEST COIN */
+
+/* parent container of best coin component */
+.best-coin-ctn{
+  /* border:2px solid black; */
+  grid-row:2/span 10;
+  grid-column: 4/span 10;
+}
+/* best coin component, contains h3, selection, graph, data */
+/* no longer in grid display */
+.best-coin{
+  /* border:2px solid red; */
+  width:100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+}
+.best-coin-selection-ctn{
+  display: flex;
+  justify-content: center;
+  height:10%;
+  align-items: center;
+}
+.best-coin-selection-ctn>.selection{
+  /* border:2px solid pink; */
+  margin-left:1rem;
+  width:10rem;
+  height:2rem;
+}
+.best-coin>.coin{
+  /* border:2px solid pink; */
+  padding: 0 3rem;
+  display: flex;
+  height:90%;
+}
+.best-coin>.coin>.left>img{
+  height: 4rem;
+  width:4rem;
+}
+.best-coin>.coin>.left{
+  width:40%;
+  padding:1rem;
+}
+.user-selection-summary{
+  color:#b7f5b7;
+  display: flex;
+  align-items: center;
+}
+.best-coin>.coin>.right{
+  /* border:2px solid red; */
+  width:60%;
+  /* display: flex; */
+  padding:2rem;
+}
+
+/* RANDOM COIN CONTAINER */
+.random-coin-ctn{
+  /* border:2px solid blue; */
+  grid-column: 2;
+  grid-row: 1/span 2;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  /* padding:0; */
+  /* background-color: #305642; */
+}
+.random-coin{
+  background-color: #305642;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  /* padding:3rem 2rem; */
+  width:80%;
+  height:60%;
+  border-radius: 2rem;
+  /* margin:0 1rem; */
+}
+/* apply this animation to class name change,class name change will be dependent on state change */
+
+@keyframes shake {
+  /* 0% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+  100% { transform: translateX(0); } */
+  0%{
+    transform:translateX(0);
+  }
+  6.5%{
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+  18.5%{
+    transform: translateX(5px) rotateY(7deg);
+    
+  }
+  31.5%{
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+  43.5%{
+    transform: translateX(2px) rotateY(3deg);
+  }
+  50%{
+    transform: translateX(0);
+  }
+}
+.random-coin.true{
+  animation:shake 1.5s ease-in-out;
+  border:2px solid green;
+}
+.random-coin.false{
+  animation: shake 1.5s ease-in-out;
+  border:2px solid blue;
+}
+
+
+
+
+
 /* HOME PAGE */
 .home{
   display:flex;

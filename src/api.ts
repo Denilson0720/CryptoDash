@@ -1,4 +1,26 @@
+import { initializeApp } from "firebase/app";
+import{getFirestore,collection,query,where,getDocs,getDoc,doc} from 'firebase/firestore/lite'
+import { LoginFormDataStructure } from "./interfaces/interfaces";
 const api_key = import.meta.env.VITE_COINGECKO_KEY
+// Import the functions you need from the SDKs you need
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCYxSBUXrzdjwWB7Pr6RD_kcV3V2zpvs60",
+  authDomain: "cryptodash-13adc.firebaseapp.com",
+  projectId: "cryptodash-13adc",
+  storageBucket: "cryptodash-13adc.appspot.com",
+  messagingSenderId: "281938898143",
+  appId: "1:281938898143:web:6b3970edbb057b38fb8d6a"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app)
+// reference to users collection
+const usersCollectionRef = collection(db,'users')
+
+
 export async function getTrending(){
     const options = {
       method: 'GET',
@@ -10,6 +32,7 @@ export async function getTrending(){
         return data
         
     } catch (err) {
+        
       console.error(err);
     }
 }
@@ -55,7 +78,7 @@ export async function getCoinsList(){
         headers: {accept: 'application/json', 'x-cg-demo-api-key': api_key}
       };
     try{
-        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=250&page=1', options)
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=250&page=1&sparkline=true', options)
         if (!response.ok){
             throw new Error(`HTTP error! states: ${response.status}`)
         }
@@ -101,4 +124,54 @@ export async function getFullCoinsList(){
         console.log(err);
         return null
     }
+}
+export async function loginUser(creds:LoginFormDataStructure){
+    const {email,password} = creds;
+    // query data from usersCollection where email and password match
+    const q = query(usersCollectionRef,where("email","==",email),where("password","==",password))
+    // console.log(q)
+    const querySnapshot = await getDocs(q)
+    console.log(querySnapshot)
+    const users = querySnapshot.docs.map((doc)=>({
+        ...doc.data(),
+        id:doc.id
+    }));
+    // if no users were found using given login creds...
+    if(users.length===0){
+        throw{
+            message:'wrong username or password, try again.',
+            status:400
+        };
+    }
+    return users;
+
+//    console.log(creds)
+}
+export function logOut(){
+    localStorage.clear();
+    console.log('logged out')
+}
+export async function getUserData(username:string|null){
+    if(!username){
+        console.log('error')
+        return {
+            name:'',
+            password:'',
+            favorites:[],
+            email:''
+        }
+        
+    }
+    const docRef = doc(db,'users',username)
+    const docSnap = await getDoc(docRef)
+    if(docSnap){
+        console.log('succesfully retrieved user data for username:',username)
+        // console.log(docSnap.data())
+        return docSnap.data()
+    }
+    else{
+        console.log('No such document')
+    }
+
+
 }

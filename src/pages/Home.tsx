@@ -127,17 +127,11 @@ export default function Home(){
     // }
     React.useEffect(()=>{
         const loadAllData = async () => {
-            // await loadTrending();
-            // await loadBitcoin();
-            // await loadEthereum();
-            // await loadTrending();
             await loadTrending();
-            await new Promise(resolve => setTimeout(resolve, 2000)); // 1-second delay
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 1-second delay
             await loadBitcoin();
             await new Promise(resolve => setTimeout(resolve, 1000)); // 1-second delay
             await loadEthereum();
-           
-           
         };
         loadAllData();
     },[])

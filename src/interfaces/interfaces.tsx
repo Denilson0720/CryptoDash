@@ -2,6 +2,10 @@
 //     coins:{}
 //     nfts:{}
 // }
+export interface logInError{
+    message:string;
+    status:number;
+}
 export interface error{
     error:{}
 }
@@ -47,6 +51,7 @@ export interface CoinListProps {
         last_updated: string;
     }
 }
+// different returning data structure from coingecko-> coins/{id}
 export interface CoinStructure {
     additional_notices: any[]; // Array of any type, replace `any` with specific type if known
     asset_platform_id: string;
@@ -274,6 +279,7 @@ export interface CoinStructure {
 }
 // make interface dummy/TrendingReturn
 // make coins section to be an array of TrendingCoin
+// different returning data structure from coingecko-> coins/trending
 export interface TrendingCoin{
     item:{
         id:string,
@@ -306,6 +312,7 @@ export interface TrendingCoin{
         }
     }
 }
+// different returning data structure from coingecko-> nfts/trending
 export interface TrendingNFT{
     id:string,
     name:string,
@@ -324,10 +331,12 @@ export interface TrendingNFT{
         content:any
     }
 }
+// different returning data structure from coingecko-> /trending
 export interface TrendingReturn{
     coins:TrendingCoin[],
     nfts:TrendingNFT[]
 }
+// different returning data structure from coingecko-> coins/list
 export interface CoinFromList{
     ath:number,
     ath_change_percentage:number,
@@ -354,10 +363,17 @@ export interface CoinFromList{
     roi:any,
     symbol:string,
     total_supply:number,
-    total_volume:number
+    total_volume:number,
+    sparkline_in_7d:{
+        price:number[];
+    }
 }
 export interface CoinListItem{
     id:string,
     symbol:string,
     name:string
+}
+export interface LoginFormDataStructure{
+    email:string
+    password:string
 }

@@ -6,11 +6,12 @@ import Search from './pages/Search'
 import Coins from './pages/Coins';
 import Coin from './pages/Coin';
 import NFTS from './pages/NFTS'
+import Login from './pages/Login';
+import AuthGuard from './components/AuthGuard';
+import User from './pages/Favorites';
 
 
 function App() {
-
-
   return (
     <BrowserRouter>
       <Routes>
@@ -21,7 +22,12 @@ function App() {
           <Route path='search' element={<Search/>}/>
           {/* not found route here */}
           <Route path='coins/:id' element ={<Coin/>}/>
+          <Route path='login' element = {<Login/>}/>
+          <Route element={<AuthGuard/>}>
+            <Route path='favorites' element={<User/>}/>
+          </Route>
           <Route path="*" element = {<Unfound/>}/>
+
         </Route>
         <Route path="*" element = {<Unfound/>}/>
       </Routes>
