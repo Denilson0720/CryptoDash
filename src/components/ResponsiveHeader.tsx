@@ -3,7 +3,7 @@ import * as React from 'react'
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Person,PersonOff,Logout,Star } from '@mui/icons-material'
+import { Person,Logout,Star } from '@mui/icons-material'
 import Footer from './Footer';
 import CustomSearchBar from './CustomSearchBar';
 import {useContext} from 'react'

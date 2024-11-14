@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import {useState,useEffect} from 'react'
-import { CoinStructure,error } from "../interfaces/interfaces"
+import { CoinStructure} from "../interfaces/interfaces"
 import { Link } from "react-router-dom"
 import SparklineGraph from '../components/SparklineGraph'
 import { getCoin } from "../api"

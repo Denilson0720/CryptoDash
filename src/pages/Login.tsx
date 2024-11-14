@@ -1,7 +1,8 @@
 import { useContext,useState } from "react"
 import { LoggedInContext } from "../components/Layout"
 import { LoginFormDataStructure,logInError } from "../interfaces/interfaces"
-import { loginUser,logOut } from "../api"
+// have to use logout as well
+import { loginUser } from "../api"
 import { useNavigate,useLocation } from "react-router-dom"
 export default function Login(){
     const [loginFormData,setLoginFormData] = useState<LoginFormDataStructure>({email:'',password:''}) 
@@ -14,7 +15,7 @@ export default function Login(){
 
     // location to figure out where user is coming from
     const location = useLocation()
-    const from = location.state?.from||'/favorites'
+    // const from = location.state?.from||'/favorites'
 
     function handleChange(e:any){
         const {name,value} = e.target
