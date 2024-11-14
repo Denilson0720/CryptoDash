@@ -2,11 +2,12 @@ import { initializeApp } from "firebase/app";
 import{getFirestore,collection,query,where,getDocs,getDoc,doc,updateDoc,arrayRemove} from 'firebase/firestore/lite'
 import { LoginFormDataStructure} from "./interfaces/interfaces";
 const api_key = import.meta.env.VITE_COINGECKO_KEY
+const firebase_key = import.meta.env.VITE_FIREBASE_KEY
 // Import the functions you need from the SDKs you need
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCYxSBUXrzdjwWB7Pr6RD_kcV3V2zpvs60",
+  apiKey: firebase_key,
   authDomain: "cryptodash-13adc.firebaseapp.com",
   projectId: "cryptodash-13adc",
   storageBucket: "cryptodash-13adc.appspot.com",
