@@ -1,10 +1,8 @@
 // will be navigated to via '/user' route
 import { useEffect,useState } from "react"
-import { getUserData,getCoin ,getCoinsList} from "../api"
-import {error,CoinStructure,CoinFromList} from '../interfaces/interfaces'
-import LoadingSmCard from "../components/LoadingSmCard"
+import { getUserData,getCoinsList} from "../api"
+import {error,CoinFromList} from '../interfaces/interfaces'
 import FavoriteCoinCard from '../components/FavoriteCoinCard'
-import SmCoinCard from "../components/SmCoinCard"
 import BestCoin from "../components/BestCoin"
 export default function Favorites(){
     const user = localStorage.getItem('userId')
@@ -12,23 +10,6 @@ export default function Favorites(){
     // const [coinData,setCoinData] = useState<{}[]>([])
     // const [testCoin,setTestCoin] = useState<any>()
     const [coinsList,setCoinsList] = useState<CoinFromList[]>([])
-    const [randomCoinIndex,setRandomCoinIndex] = useState<number>(Math.floor(Math.random()*251));
-    const [randomFlag,setRandomFlag] = useState<boolean>(true);
-    // delay func
-    const sleep =  (miliseconds:number)=> new Promise(resolve=>setTimeout(resolve,miliseconds))
-    // const randomCoinIndex = ()=> (Math.floor(Math.floor(Math.random()*251)))
-    const handleNewRandomCoinIndex = ()=>{
-        const newIndex = Math.floor(Math.random()*251)
-        console.log(newIndex)
-        setRandomFlag(x=>!x)
-        setRandomCoinIndex(newIndex)
-    }
-    const randomCoin = randomCoinIndex && coinsList?(
-        // coin = coinsList[randomCoinIndex]
-        <SmCoinCard
-            coin={coinsList[randomCoinIndex]}
-        />
-    ):<LoadingSmCard/>
 
     const name = (name:string|null)=>{
         if(name){
@@ -40,13 +21,6 @@ export default function Favorites(){
             return 'User'
         }
       
-    }
-
-    interface UserDataStructure{
-        email:string
-        favorites:string[]
-        name:string
-        password:string
     }
     const loadCoinsList = async ()=>{
         try{
@@ -65,32 +39,6 @@ export default function Favorites(){
         }
 
     }
-    /*
-    const loadCoinData = async(ids:number[])=>{
-        const fetchedData = [];
-        for(const id of ids){
-            try{
-                // await new Promise(resolve=>setTimeout(resolve,3000));
-                const data = await getCoin(id)
-                if(data){
-                    fetchedData.push(data)
-                    console.log('succesfully fetched data for',id)
-                    await sleep(5000)
-                }
-                else{
-                    throw new Error(`unsuccesful data fetch for ${id}`)
-                }
-                
-                // 3 second delay before next api data pull
-                await sleep(5000)
-            }
-            catch(error){
-                console.log(error)
-            }
-        }
-        setCoinData(fetchedData)
-    }
-        */
     const loadUserData=()=>{
         // const userData = getUserData(user)
         // console.log(userData)
@@ -115,26 +63,6 @@ export default function Favorites(){
         console.log('success user from func')
         // setFavoriteIDs(userData.favorite)
     }
-    /*
-    const loadTestCoin = async ()=>{
-        await sleep(3000)
-        try{
-            const result = await getCoin(favoriteIDs[3]);
-            if(result){
-                console.log(`succesfully laoded ${favoriteIDs[0]} data`)
-                // console.log(result)
-                setTestCoin(result)
-            }
-            else{
-                throw new Error('No data received');
-            }
-        }
-        catch(error){
-            console.log(error)
-        }
-
-    }
-    */
 //    array with data only from favorited coins, found through id filtering
    const favoriteCoinData = coinsList?.filter((coin:CoinFromList)=>{
         return favoriteIDs.includes(coin.id)
@@ -153,6 +81,7 @@ export default function Favorites(){
         
     },[])
     return(
+        
         <div className='home favorites'>
             <div className="user-welcome">
                 <h1>Welcome {name(user)}...</h1>
@@ -183,23 +112,7 @@ export default function Favorites(){
                     <BestCoin
                         fav_coins={favoriteCoinData}
                     />
-
-
                 </div>
-                {/* <div className="random-coin-ctn">
-                    <h3>Check out a random coin</h3>
-                    <div className={`random-coin ${randomFlag}`}>
-                        {randomCoin}
-                    </div>
-                    <button onClick = {()=>handleNewRandomCoinIndex()}>new coin</button>
-                    
-
-                </div> */}
-                
-                {/* debugging buttons */}
-                {/* <button onClick = {()=>{console.log(coinsList)}}>Coins List</button> */}
-                {/* <button onClick={()=>{console.log(favoriteIDs)}}>Favorite Ids</button> */}
-                {/* <button onClick={()=>{console.log(favoriteCoinData)}}>favorite coins filtered data</button> */}
             </div>
         </div>
     )

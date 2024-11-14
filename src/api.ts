@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import{getFirestore,collection,query,where,getDocs,getDoc,doc} from 'firebase/firestore/lite'
-import { LoginFormDataStructure } from "./interfaces/interfaces";
+import{getFirestore,collection,query,where,getDocs,getDoc,doc,updateDoc,arrayRemove} from 'firebase/firestore/lite'
+import { LoginFormDataStructure} from "./interfaces/interfaces";
 const api_key = import.meta.env.VITE_COINGECKO_KEY
 // Import the functions you need from the SDKs you need
 
@@ -172,6 +172,19 @@ export async function getUserData(username:string|null){
     else{
         console.log('No such document')
     }
-
-
 }
+export async function removeFavorite(userId: string, coin: string) {
+    try {
+      // Get the specific user's document reference from the users collection
+      const userDocRef = doc(usersCollectionRef, userId);
+  
+      // Use arrayRemove to remove the coin from the favorites array
+      await updateDoc(userDocRef, {
+        favorites: arrayRemove(coin)
+      });
+  
+      console.log(`Successfully removed ${coin} from favorites.`);
+    } catch (error) {
+      console.error("Error removing favorite:", error);
+    }
+  }

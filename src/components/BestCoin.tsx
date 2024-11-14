@@ -3,11 +3,11 @@ import {useState,useEffect} from 'react'
 import SparklineGraph from "./SparklineGraph"
 import {Tooltip} from '@mui/material'
 import InfoIcon from '@mui/icons-material/Info';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
+import {Link} from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+// BestCoin component to be used in Favorites page
+
 // pass in favoriteCoinData from Favorites.tsx
 export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
     // user will be able to select what "best" coin they want
@@ -16,12 +16,6 @@ export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
     // market_cap_change
     // highest_circ_supply_ratio
     // lowest_circ_supply_ratio
-   
-    const selectedStyle = {
-        color:'black',
-        borderBottom:'solid 2px black',
-        transition:'0.2s'
-    }
     const best_by_price_change = ()=>{
         let max = 0
         for(let i = 0;i<fav_coins.length;i++){
@@ -36,6 +30,7 @@ export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
     // lazy rendering
     const [coin,setCoin] = useState<CoinFromList>()
     const [userSelect,setUserSelect] = useState<string>('best coin by price change')
+    const coin_link = coin?.id?coin?.id:''
     //dependent on userSelect state, conditionally returns correct summary for user depdening on the coin they chose
     const userSelectionSummary = ()=>{
         let summary =''
@@ -85,7 +80,6 @@ export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
                 min_ratio = ratio
                 min_ratio_coin_index = i
             }
-            // if(fav_coins[])
         }
         // console.log('lowest ratio coin is:', fav_coins[min_ratio_coin_index])
         return fav_coins[min_ratio_coin_index]
@@ -93,8 +87,6 @@ export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
     const handleSelection =(event:SelectChangeEvent)=>{
         const userSelection = event?.target.value;
         setUserSelect(userSelection)
-        // console.log(userSelection)
-        // setCoin(highest_circ_supply_ratio())
         userSelection=='best coin by price change'?setCoin(best_by_price_change()):null;
         userSelection=='best coin by market cap change'?setCoin(best_by_market_cap_change()):null;
         userSelection=='highest circulating/supply ratio'?setCoin(highest_circ_supply_ratio()):null;
@@ -117,12 +109,6 @@ export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
         <div className="best-coin">
             <div className="best-coin-selection-ctn">
                 <h3 className="metric">Look at your best coins based on the following metrics:</h3>
-                {/* <select name="coin" onChange ={(event)=>handleSelection(event)}>
-                    <option value='best coin by price change'>best price change</option>
-                    <option value='best coin by market cap change'>best market cap change</option>
-                    <option value='highest circulating/supply ratio'>highest circulating/supply ratio</option>
-                    <option value='lowest circulating/supply ratio'>lowest circulating/supply ratio</option>
-                </select> */}
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -132,34 +118,29 @@ export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
                     className="selection"
                     sx={{
                         bgcolor:'#305642 !important',
-                        color:'pink',
-                        '& .MuiSelect-icon':{
-                            color:'black imporant'
-                        }
-
+                        color:'white',
                     }}
+                    MenuProps={{
+                        PaperProps: {
+                          sx: {
+                            bgcolor: '#305642',
+                            '& .MuiMenuItem-root': {
+                                // borderBottom:'1px solid grey'
+                            },
+                            '& .MuiMenuItem-root.Mui-selected': {
+                              bgcolor: 'rgb(30,54,41)'
+                            },
+                          },
+                        },
+                      }}
                     >
-                    <MenuItem 
-                        sx={{bgcolor:'#305642 !important',color:'black',border:'2px solid red'}}
-                        value={'best coin by price change'}>best price change</MenuItem>
+                    <MenuItem value={'best coin by price change'}>best price change</MenuItem>
                     <MenuItem value={'best coin by market cap change'}>best market cap change</MenuItem>
                     <MenuItem value={'highest circulating/supply ratio'}>highest circulating/supply ratio</MenuItem>
                     <MenuItem value={'lowest circulating/supply ratio'}>lowest circulating/supply ratio</MenuItem>
                 </Select>
 
             </div>
-            {/* <h1>coin is {selectedCoin()}</h1> */}
-
-             {/* <button onClick = {()=>console.log(best_by_price_change())}>best price change</button> */}
-            {/* <button onClick = {()=>console.log(highest_circ_supply_ratio())}>highest ratio</button> */}
-            {/* <button onClick = {()=>console.log(best_by_market_cap_change())}>market cap change</button> */}
-            {/* <button onClick = {()=>console.log(lowest_circ_supply_ratio())}>min ratio</button> */}
-            {/* <button onClick = {()=>console.log(coin)}>current coin selection</button>  */}
-            {/* <p>best by price change: {best_by_price_change()?.name}</p> */}
-            {/* <p>best by circulating/supply ratio: {highest_circ_supply_ratio()?.name}</p> */}
-            {/* <p>best by lowest circulating/supply ratio: {lowest_circ_supply_ratio()?.name}</p> */}
-            {/* <p>best by market cap change: {best_by_market_cap_change()?.name}</p> */}
-            {/* {coin?.name} */}
             <div className = 'coin'>
                 <div className="left">
                     {/* run function that conditional renders h2 with title best price change coin...*/}
@@ -172,7 +153,10 @@ export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
            
 
                     <img src={coin?.image} alt="" />
-                    <h3>{coin?.name}</h3>
+                    <div className="name">
+                        <h3>{coin?.name}</h3> 
+                        <span><Link to={`/coins/${coin_link}`} key = {coin?.id} className="link">View More</Link></span>
+                    </div>
                     <p>id: <span className='data'>{coin?.id}</span></p>
                     {/* <p><span className='data'>{coin?.name}</span></p> */}
                     <p>price: <span className='data'>${coin?.current_price}</span></p>
@@ -190,7 +174,6 @@ export default function BestCoin({fav_coins}:{fav_coins:CoinFromList[]}){
                 </div>
 
             </div>
-            {/* <button onClick = {()=>console.log(coin)}>current coin state</button> */}
         </div>
     )
 }
