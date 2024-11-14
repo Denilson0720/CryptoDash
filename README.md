@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# CryptoDash
+### Demo: [CryptoDash](https://cryptrodash.netlify.app/)
+### What is CryptoDash?
+CryptoDash is a crypto currency tracker that allows its users to have access to real time live and accurate data about any crypto currency coin available.
+All data displayed on CryptoDash is fetched from the [CoinGecko](https://www.coingecko.com/en/api) API Free tier.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Why did I build CryptoDash?
+All in the name of becoming a good developer😤.</br>
 
-Currently, two official plugins are available:
+CryptoDash is a project that allowed me to become comfortable with TypeScript in a React ecosystem while also exposing me to key concepts in state management, asynchronous data fetching, and integration with APIs. Working on CryptoDash helped me improve my understanding of TypeScript's type safety, particularly in defining props, handling complex data structures, and building reusable components in a way that minimizes errors. Additionally, this project introduced me to best practices in organizing React code, including component structure, hooks, and efficient rendering, making it a valuable learning experience in TypeScript and React development.
+### Features:
+* Search Bar, users are given suggested coins to search for upon every new key stroke.
+* User profiles, users can login to CrytoDash
+* User Wallets, a collection of all the users favorited coins
+* Interactive tick graphs, users can view the change in price for a coin by the hour
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Tech Used:
+* React
+* TypeScript
+* FireStore
+* MaterialUI
+* CoinGecko API
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+![alt text](image.png)
+![alt text](image-2.png)
+![alt text](image-1.png)
