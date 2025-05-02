@@ -22,6 +22,7 @@ CryptoDash is a project that allowed me to become comfortable with TypeScript in
 * MaterialUI
 * CoinGecko API
 ### Project Images
-![alt text](image.png)
-![alt text](image-2.png)
-![alt text](image-1.png)
+
+![alt text](/public/image.png)
+![alt text](/public/image-1.png)
+![alt text](/public/image-2.png)
